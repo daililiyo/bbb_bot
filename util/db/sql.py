@@ -19,7 +19,7 @@ f = {
 class Mysql:
     def __init__(self, db):
         self.db = pymysql.connect(host=db['host'], port=db['port'], user=db['user'], password=db['password'],
-                                  database=db['database'])
+                                  database=db['database'], charset='utf8mb4')
         self.cursor = self.db.cursor(pymysql.cursors.DictCursor)
 
     def __del__(self):

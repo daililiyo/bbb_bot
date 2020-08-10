@@ -1,7 +1,55 @@
-CREATE TABLE `qqmsg`.`group_msg` ( `current_qq` BIGINT(20) NOT NULL , `from_nickname` VARCHAR(100) NULL DEFAULT NULL , `from_user_id` BIGINT(20) NOT NULL , `from_group_name` VARCHAR(100) NULL DEFAULT NULL , `from_group_id` BIGINT(20) NOT NULL , `at_user_id` BIGINT(20) NULL DEFAULT NULL , `content` TEXT NULL DEFAULT NULL , `pics` TEXT NULL DEFAULT NULL , `tips` TEXT NULL DEFAULT NULL , `redbag_info` TEXT NULL DEFAULT NULL , `msg_time` BIGINT(20) NOT NULL , `msg_type` VARCHAR(40) NOT NULL , `msg_seq` BIGINT(20) NULL DEFAULT NULL , `msg_random` BIGINT(20) NOT NULL ) ENGINE = InnoDB;
+CREATE TABLE `qqmsg`.`group_msg` (
+  `current_qq` bigint(20) NOT NULL,
+  `from_nickname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `from_user_id` bigint(20) NOT NULL,
+  `from_group_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `from_group_id` bigint(20) NOT NULL,
+  `at_user_id` bigint(20) DEFAULT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `pics` text,
+  `tips` text,
+  `redbag_info` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `msg_time` bigint(20) NOT NULL,
+  `msg_type` varchar(40) NOT NULL,
+  `msg_seq` bigint(20) NOT NULL,
+  `msg_random` bigint(20) NOT NULL
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+ALTER TABLE `qqmsg`.`group_msg`
+  ADD PRIMARY KEY (`current_qq`, `from_user_id`, `from_group_id`, `msg_seq`);
 
 
-CREATE TABLE `qqmsg`.`img` ( `FileId` BIGINT(20) NOT NULL AUTO_INCREMENT , `FileMd5` TEXT NOT NULL , `FileSize` BIGINT(20) NOT NULL , `ForwordBuf` TEXT NOT NULL , `ForwordField` BIGINT(20) NOT NULL , `Url` TEXT NOT NULL , PRIMARY KEY (`FileId`)) ENGINE = InnoDB;
+CREATE TABLE `qqmsg`.`img` (
+  `FileId` bigint(20) NOT NULL,
+  `FileMd5` text NOT NULL,
+  `FileSize` bigint(20) NOT NULL,
+  `ForwordBuf` text NOT NULL,
+  `ForwordField` bigint(20) DEFAULT NULL,
+  `Url` text NOT NULL
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+ALTER TABLE `qqmsg`.`img`
+  ADD PRIMARY KEY (`FileId`);
+
+ALTER TABLE `qqmsg`.`img`
+  MODIFY `FileId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 
-CREATE TABLE `qqmsg`.`friend_msg` ( `current_qq` BIGINT(20) NOT NULL , `from_user_id` BIGINT(20) NOT NULL , `content` TEXT NULL DEFAULT NULL , `pics` TEXT NULL DEFAULT NULL , `tips` TEXT NULL DEFAULT NULL , `redbag_info` TEXT NULL DEFAULT NULL , `msg_time` BIGINT(20) NOT NULL , `msg_type` VARCHAR(10) NOT NULL , `msg_seq` BIGINT(20) NULL DEFAULT NULL ) ENGINE = InnoDB;
+CREATE TABLE `qqmsg`.`friend_msg` (
+  `current_qq` bigint(20) NOT NULL,
+  `from_user_id` bigint(20) NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ,
+  `pics` text,
+  `tips` text,
+  `redbag_info` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `msg_time` bigint(20) NOT NULL,
+  `msg_type` varchar(40) NOT NULL,
+  `msg_seq` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+ALTER TABLE `qqmsg`.`friend_msg`
+  ADD PRIMARY KEY (`current_qq`, `from_user_id`, `msg_seq`);
+  
+  
+  
+  
