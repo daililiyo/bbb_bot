@@ -1,0 +1,7 @@
+CREATE TABLE `qqmsg`.`group_msg` ( `current_qq` BIGINT(20) NOT NULL , `from_nickname` VARCHAR(100) NULL DEFAULT NULL , `from_user_id` BIGINT(20) NOT NULL , `from_group_name` VARCHAR(100) NULL DEFAULT NULL , `from_group_id` BIGINT(20) NOT NULL , `at_user_id` BIGINT(20) NULL DEFAULT NULL , `content` TEXT NULL DEFAULT NULL , `pics` TEXT NULL DEFAULT NULL , `tips` TEXT NULL DEFAULT NULL , `redbag_info` TEXT NULL DEFAULT NULL , `msg_time` BIGINT(20) NOT NULL , `msg_type` VARCHAR(40) NOT NULL , `msg_seq` BIGINT(20) NULL DEFAULT NULL , `msg_random` BIGINT(20) NOT NULL ) ENGINE = InnoDB;
+
+
+CREATE TABLE `qqmsg`.`img` ( `FileId` BIGINT(20) NOT NULL AUTO_INCREMENT , `FileMd5` TEXT NOT NULL , `FileSize` BIGINT(20) NOT NULL , `ForwordBuf` TEXT NOT NULL , `ForwordField` BIGINT(20) NOT NULL , `Url` TEXT NOT NULL , PRIMARY KEY (`FileId`)) ENGINE = InnoDB;
+
+
+CREATE TABLE `qqmsg`.`friend_msg` ( `current_qq` BIGINT(20) NOT NULL , `from_user_id` BIGINT(20) NOT NULL , `content` TEXT NULL DEFAULT NULL , `pics` TEXT NULL DEFAULT NULL , `tips` TEXT NULL DEFAULT NULL , `redbag_info` TEXT NULL DEFAULT NULL , `msg_time` BIGINT(20) NOT NULL , `msg_type` VARCHAR(10) NOT NULL , `msg_seq` BIGINT(20) NULL DEFAULT NULL ) ENGINE = InnoDB;
