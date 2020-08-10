@@ -97,16 +97,27 @@ def insert_group_msg(ctx: GroupMsg):
     elif ctx.MsgType == 'PicMsg':
         content = json.loads(ctx.Content)
         pics = []
-        for pic in content["GroupPic"]:
+        if content["Tips"] == '[群消息-QQ闪照]':
             ret = db.insert('img', dict(
-                FileId=pic['FileId'],
-                FileMd5=pic['FileMd5'],
-                FileSize=pic['FileSize'],
-                ForwordBuf=pic['ForwordBuf'],
-                ForwordField=pic['ForwordField'],
-                Url=pic['Url'],
+                FileId=content['FileId'],
+                FileMd5=content['FileMd5'],
+                FileSize=content['FileSize'],
+                ForwordBuf=content['ForwordBuf'],
+                ForwordField=content['ForwordField'],
+                Url=content['Url'],
             ))
             pics.append(ret)
+        else:
+            for pic in content["GroupPic"]:
+                ret = db.insert('img', dict(
+                    FileId=pic['FileId'],
+                    FileMd5=pic['FileMd5'],
+                    FileSize=pic['FileSize'],
+                    ForwordBuf=pic['ForwordBuf'],
+                    ForwordField=pic['ForwordField'],
+                    Url=pic['Url'],
+                ))
+                pics.append(ret)
         db.insert('group_msg', dict(
             current_qq=ctx.CurrentQQ,
             from_nickname=ctx.FromNickName,
