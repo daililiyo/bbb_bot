@@ -165,7 +165,7 @@ def insert_friend_msg(ctx: FriendMsg):
         db.insert('friend_msg', dict(
             current_qq=ctx.CurrentQQ,
             from_user_id=ctx.FromUin,
-            content=content["Content"] if "Content" in content else None,
+            content=content,
             pics=None,
             tips=None,
             redbag_info=ctx.RedBaginfo,
@@ -173,31 +173,41 @@ def insert_friend_msg(ctx: FriendMsg):
             msg_type=ctx.MsgType,
             msg_seq=ctx.MsgSeq
         ))
-    # elif ctx.MsgType == 'PicMsg':
-    #     content = json.loads(ctx.Content)
-    #     print(content)
-    #     pics = []
-    #     for pic in content["FriendPic"]:
-    #         ret = db.insert('img', dict(
-    #             # FileId=pic['FileId'],
-    #             FileMd5=pic['FileMd5'],
-    #             FileSize=pic['FileSize'],
-    #             ForwordBuf=pic['Path'],
-    #             # ForwordField=pic['ForwordField'],
-    #             Url=pic['Url'],
-    #         ))
-    #         pics.append(ret.inserted_id)
-    #     db.insert('friend_msg', dict(
-    #         current_qq=ctx.CurrentQQ,
-    #         from_user_id=ctx.FromUin,
-    #         content=content["Content"] if "Content" in content else None,
-    #         pics=json.dumps(pics),
-    #         tips=content["Tips"] if "Tips" in content else None,
-    #         redbag_info=ctx.RedBaginfo,
-    #         msg_time=int(time.time()),
-    #         msg_type=ctx.MsgType,
-    #         msg_seq=ctx.MsgSeq
-    #     ))
+    elif ctx.MsgType == 'PicMsg':
+        content = json.loads(ctx.Content)
+        pics = []
+        if content["Tips"] == '[好友消息-QQ闪照]':
+            ret = db.insert('img', dict(
+                Path=content['Path'],
+                FileMd5=content['FileMd5'],
+                FileSize=content['FileSize'],
+                ForwordBuf=content['ForwordBuf'],
+                ForwordField=content['ForwordField'],
+                Url=content['Url'],
+            ))
+            pics.append(ret)
+        else:
+            for pic in content["FriendPic"]:
+                ret = db.insert('img', dict(
+                    # FileId=pic['FileId'],
+                    FileMd5=pic['FileMd5'],
+                    FileSize=pic['FileSize'],
+                    Path=pic['Path'],
+                    # ForwordField=pic['ForwordField'],
+                    Url=pic['Url'],
+                ))
+                pics.append(ret)
+        db.insert('friend_msg', dict(
+            current_qq=ctx.CurrentQQ,
+            from_user_id=ctx.FromUin,
+            content=content["Content"] if "Content" in content else None,
+            pics=json.dumps(pics),
+            tips=content["Tips"] if "Tips" in content else None,
+            redbag_info=ctx.RedBaginfo,
+            msg_time=int(time.time()),
+            msg_type=ctx.MsgType,
+            msg_seq=ctx.MsgSeq
+        ))
     else:
         print('Unspecified message type')
 

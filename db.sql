@@ -23,9 +23,10 @@ CREATE TABLE `qqmsg`.`img` (
   `FileId` bigint(20) NOT NULL,
   `FileMd5` text NOT NULL,
   `FileSize` bigint(20) NOT NULL,
-  `ForwordBuf` text NOT NULL,
+  `ForwordBuf` text DEFAULT NULL,
   `ForwordField` bigint(20) DEFAULT NULL,
-  `Url` text NOT NULL
+  `Url` text NOT NULL,
+  `Path` text DEFAULT NULL,
 ) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 ALTER TABLE `qqmsg`.`img`
