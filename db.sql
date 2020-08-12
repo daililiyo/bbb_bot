@@ -4,7 +4,7 @@ CREATE TABLE `qqmsg`.`group_msg` (
   `from_user_id` bigint(20) NOT NULL,
   `from_group_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `from_group_id` bigint(20) NOT NULL,
-  `at_user_id` bigint(20) DEFAULT NULL,
+  `at_user_id` text DEFAULT NULL,
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `pics` text,
   `tips` text,
