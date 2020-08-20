@@ -13,9 +13,10 @@ max_info_length = 341
 ocrCommandList = ['OCR', 'ocr', '识图', '转文字', '图片转文字']
 translateCommandList = ['翻译']
 
+# 自行到百度 https://ai.baidu.com/tech/ocr/ 申请API
 # API_key 为官网获取的AK， Secret_Key 为官网获取的SK
-API_key = "oNnWciQupqWPH871GU0T77dy"
-Secret_Key = "xMNjsEhc1RbIxGlhWdX9ACDe5LjktDHi"
+API_key = ""
+Secret_Key = ""
 
 # 你所选用的API识别接口
 API_URL = "https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic"
