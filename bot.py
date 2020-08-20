@@ -1,14 +1,20 @@
 # -*- coding:utf-8 -*-
 
+import os
+
 from iotbot import IOTBOT, Action, GroupMsg
 
 bot_qq = 123456
 
+# 使得并发命令时，插件可以排队处理
+os.environ['BOTQQ'] = str(bot_qq)
+
 bot = IOTBOT(
-    qq = bot_qq,
-    host = 'http://127.0.0.1',
-    port = 8888,
-    use_plugins = True
+    qq=bot_qq,
+    # 若非默认，请在 .iotbot.json 内配置 ↓
+    # host = 'http://127.0.0.1', 
+    # port = 8888,
+    use_plugins=True
 )
 action = Action(bot)
 

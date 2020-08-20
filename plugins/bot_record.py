@@ -6,18 +6,13 @@ RESOURCES_BASE_PATH = './resources/record'
 
 # 屏蔽群 例：[12345678, 87654321]
 blockGroupNumber = []
-# 服务器配置
-host = 'http://127.0.0.1'
-port = 8888
-
 max_info_length = 341
 
 # ==========================================
 
-import util.db.sql as op
-import time
-from iotbot import  GroupMsg, FriendMsg
+from iotbot import GroupMsg, FriendMsg
 
+import util.db.sql as op
 
 try:
     import ujson as json
@@ -26,13 +21,20 @@ except:
 
 
 def receive_group_msg(ctx: GroupMsg):
-    msg_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(ctx.MsgTime))
-    print(f'{ctx.FromNickName}在{msg_time}的时候，在群{ctx.FromGroupId}发了一个类型是{ctx.MsgType}的消息，内容为：')
-    print(f'{ctx.Content}')
+    # 群消息存入数据库
     op.insert_group_msg(ctx)
+
+    # 检查群列表及群成员数据是否存在
+    msg_group_id = ctx.FromGroupId
+    admin_user_id = ctx.FromUserId
+    op.check_group_list(msg_group_id)
+    op.check_group_member_list(msg_group_id, admin_user_id)
+
+    # print(ctx.FromNickName + '是群主：' + str(op.is_group_owner(msg_group_id, admin_user_id)))
+    # print(ctx.FromNickName + '是管理员：' + str(op.is_group_admin(msg_group_id, admin_user_id)))
+    # print(ctx.FromNickName + '是主人：' + str(op.is_bot_master(ctx.CurrentQQ, admin_user_id)))
 
 
 def receive_friend_msg(ctx: FriendMsg):
-    print(f'{ctx.FromUin}向{ctx.ToUin}发了一个类型是{ctx.MsgType}的消息，内容为：')
-    print(f'{ctx.Content}')
+    # 好友消息存入数据库
     op.insert_friend_msg(ctx)
